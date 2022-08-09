@@ -1,9 +1,8 @@
 <?php
 
-use App\Http\Controllers\PersonController;
-use Illuminate\Http\Request;
+// use App\Http\Controllers\PersonController;
 use Illuminate\Support\Facades\Route;
-use App\Models\person;
+use App\Http\Controllers\Api\v1\PersonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +20,7 @@ use App\Models\person;
 // });
 
 // Route::get('/person/{person}', [PersonController::class, 'show']);
-Route::apiResource('/person', PersonController::class);
+
+Route::prefix('/v1')->group(function(){
+    Route::apiResource('/person', PersonController::class)->only('index','show','destroy','update','delete');
+});

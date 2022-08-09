@@ -1,16 +1,27 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\v1;
 
-use App\Models\Person as PersonModel;
-use App\Http\Resources\PersonResource;
-use App\Http\Resources\PersonResourceCollection;
-use Faker\Provider\ar_EG\Person;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Person as PersonModel;
+use App\Http\Resources\v1\PersonResource;
+use App\Http\Resources\v1\PersonResourceCollection;
+use Faker\Provider\ar_EG\Person;
 
 class PersonController extends Controller
 {
     /**
+     * it show all the records with pagination
+     *
+     * @return  PersonResourceCollection[return description]
+     */
+    public function index(): PersonResourceCollection
+    {
+        return new PersonResourceCollection(PersonModel::paginate());
+    }
+
+        /**
      * show record on the basis of the ids
      *
      * @param Person 
@@ -22,18 +33,6 @@ class PersonController extends Controller
     {
         return new PersonResource($person);
     }
-
-
-    /**
-     * it show all the records with pagination
-     *
-     * @return  PersonResourceCollection[return description]
-     */
-    public function index(): PersonResourceCollection
-    {
-        return new PersonResourceCollection(PersonModel::paginate());
-    }
-
 
     /**
      * [store description]
